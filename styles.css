@@ -37,6 +37,9 @@ body {
     color: var(--rojo-borgoña);
     line-height: 1.7;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .container {
@@ -255,6 +258,8 @@ body {
     height: 100%;
     object-fit: cover;
     transition: var(--transition-smooth);
+    display: block;
+    max-width: 100%;
 }
 
 .moment-card:hover .moment-image {
@@ -697,6 +702,33 @@ body {
 }
 
 /* ============================================
+   FOOTER CON CRÉDITOS
+   ============================================ */
+.footer-credits {
+    background: linear-gradient(135deg, var(--rojo-oscuro) 0%, var(--rojo-borgoña) 100%);
+    padding: 30px 0;
+    text-align: center;
+    color: var(--blanco);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-text {
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.footer-company {
+    font-weight: 700;
+    font-family: var(--font-serif);
+    color: var(--dorado);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* ============================================
    ANIMACIONES
    ============================================ */
 @keyframes fadeInUp {
@@ -795,44 +827,634 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE - TABLETS Y MÓVILES GRANDES
+   ============================================ */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+    
+    .moments-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    
+    .letter-paper {
+        padding: 50px 40px;
+    }
+    
+    .cta-section {
+        padding: 80px 0;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - TABLETS
    ============================================ */
 @media (max-width: 768px) {
+    /* Hero Section */
     .hero {
         background-attachment: scroll;
+        min-height: 500px;
+        height: 100vh;
+        max-height: 800px;
+    }
+    
+    .hero-content {
+        padding: 30px 20px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 7vw, 4rem);
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+    
+    .scroll-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    /* Control de sonido */
+    .sound-toggle {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+    }
+    
+    #soundIcon {
+        font-size: 20px;
+    }
+    
+    /* Secciones */
+    .moments-section {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 15px;
+    }
+    
+    .section-subtitle {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        margin-bottom: 40px;
+        padding: 0 20px;
     }
     
     .moments-grid {
         grid-template-columns: 1fr;
         gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .moment-image-wrapper {
+        height: 250px;
+    }
+    
+    .moment-content {
+        padding: 25px;
+    }
+    
+    .moment-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .moment-content p {
+        font-size: 0.95rem;
+    }
+    
+    /* Carta */
+    .letter-section {
+        padding: 60px 0;
+    }
+    
+    .letter-open-btn {
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .letter-icon {
+        font-size: 1.5rem;
     }
     
     .letter-paper {
         padding: 40px 30px;
+        margin: 0 10px;
+    }
+    
+    .letter-header h2 {
+        font-size: 2rem;
+    }
+    
+    .letter-body p {
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+    
+    .letter-signature {
+        font-size: 1.1rem;
+        margin-top: 30px;
+    }
+    
+    .signature-name {
+        font-size: 1.3rem;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+        padding: 80px 0;
+    }
+    
+    .cta-heart-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+    
+    .cta-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 20px;
+        padding: 0 20px;
+    }
+    
+    .cta-subtitle {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        margin-bottom: 40px;
+        padding: 0 20px;
     }
     
     .cta-button {
         padding: 20px 40px;
         font-size: 1.2rem;
+        flex-direction: column;
+        gap: 10px;
     }
     
+    .cta-button-heart {
+        font-size: 1.5rem;
+    }
+    
+    /* Modal */
     .modal-content {
-        padding: 30px 20px;
+        padding: 40px 30px;
+        margin: 20px;
+        max-width: 90%;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+    
+    .modal-body p {
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+    
+    .response-btn {
+        padding: 16px 35px;
+        font-size: 1.1rem;
+    }
+    
+    /* Mensaje Final */
+    .final-content {
+        padding: 40px 30px;
+        margin: 20px;
+        max-width: 90%;
+    }
+    
+    .final-heart-animation {
+        font-size: 4rem;
+        margin-bottom: 20px;
+    }
+    
+    .final-content h2 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 20px;
+    }
+    
+    .final-content p {
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+        margin-bottom: 30px;
+    }
+    
+    .close-btn {
+        padding: 12px 35px;
+        font-size: 1rem;
     }
 }
 
+/* ============================================
+   RESPONSIVE - MÓVILES PEQUEÑOS
+   ============================================ */
 @media (max-width: 480px) {
+    /* Container */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        min-height: 400px;
+        max-height: 600px;
+    }
+    
     .hero-content {
-        padding: 20px;
+        padding: 20px 15px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        margin-bottom: 25px;
+        line-height: 1.6;
+        padding: 0;
+    }
+    
+    .scroll-btn {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+        width: auto;
+    }
+    
+    .scroll-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Control de sonido */
+    .sound-toggle {
+        width: 40px;
+        height: 40px;
+        top: 10px;
+        right: 10px;
+    }
+    
+    #soundIcon {
+        font-size: 18px;
+    }
+    
+    /* Secciones */
+    .moments-section {
+        padding: 50px 0;
     }
     
     .section-title {
-        font-size: 2rem;
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+    }
+    
+    .section-subtitle {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        margin-bottom: 30px;
+        padding: 0 10px;
+        line-height: 1.6;
+    }
+    
+    .moments-grid {
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .moment-image-wrapper {
+        height: 220px;
+    }
+    
+    .moment-content {
+        padding: 20px;
+    }
+    
+    .moment-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+    
+    .moment-content p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+    
+    /* Carta */
+    .letter-section {
+        padding: 50px 0;
+    }
+    
+    .letter-wrapper {
+        padding: 0 10px;
     }
     
     .letter-open-btn {
         padding: 15px 30px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .letter-icon {
+        font-size: 1.3rem;
+    }
+    
+    .letter-content {
+        margin-top: 30px;
+    }
+    
+    .letter-paper {
+        padding: 30px 20px;
+        margin: 0;
+        border-width: 2px;
+    }
+    
+    .letter-header {
+        margin-bottom: 30px;
+    }
+    
+    .letter-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    
+    .letter-date {
+        font-size: 0.9rem;
+    }
+    
+    .letter-body p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        margin-bottom: 18px;
+    }
+    
+    .letter-signature {
+        font-size: 1rem;
+        margin-top: 25px;
+    }
+    
+    .signature-name {
+        font-size: 1.2rem;
+        margin-top: 8px;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+        padding: 60px 0;
+    }
+    
+    .cta-content {
+        padding: 0 15px;
+    }
+    
+    .cta-heart-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .cta-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: 15px;
+        padding: 0;
+        line-height: 1.2;
+    }
+    
+    .cta-subtitle {
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
+        margin-bottom: 30px;
+        padding: 0;
+        line-height: 1.6;
+    }
+    
+    .cta-button {
+        padding: 18px 35px;
         font-size: 1.1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .cta-button-text {
+        font-size: 1rem;
+    }
+    
+    .cta-button-heart {
+        font-size: 1.3rem;
+    }
+    
+    /* Modal */
+    .modal-content {
+        padding: 30px 20px;
+        margin: 15px;
+        max-width: calc(100% - 30px);
+        border-width: 2px;
+    }
+    
+    /* Footer */
+    .footer-credits {
+        padding: 25px 0;
+    }
+    
+    .footer-text {
+        font-size: 0.95rem;
+        padding: 0 15px;
+    }
+    
+    .footer-company {
+        font-size: 1rem;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .modal-body p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .response-buttons {
+        gap: 12px;
+    }
+    
+    .response-btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+        width: 100%;
+    }
+    
+    /* Mensaje Final */
+    .final-content {
+        padding: 30px 20px;
+        margin: 15px;
+        max-width: calc(100% - 30px);
+    }
+    
+    .final-heart-animation {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .final-content h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+    
+    .final-content p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+    
+    .close-btn {
+        padding: 12px 30px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - MÓVILES MUY PEQUEÑOS
+   ============================================ */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .letter-paper {
+        padding: 25px 15px;
+    }
+    
+    .letter-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .cta-button {
+        padding: 15px 25px;
+        font-size: 1rem;
+    }
+    
+    .footer-text {
+        font-size: 0.9rem;
+    }
+    
+    .footer-company {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - ORIENTACIÓN LANDSCAPE (MÓVILES)
+   ============================================ */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: 100vh;
+        max-height: none;
+    }
+    
+    .hero-content {
+        padding: 20px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 10px;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        margin-bottom: 20px;
+    }
+    
+    .moments-section {
+        padding: 40px 0;
+    }
+    
+    .letter-section {
+        padding: 40px 0;
+    }
+    
+    .cta-section {
+        padding: 60px 0;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - TOUCH DEVICES
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+    /* Aumentar áreas táctiles */
+    .sound-toggle {
+        width: 50px;
+        height: 50px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .scroll-btn,
+    .letter-open-btn,
+    .cta-button,
+    .response-btn,
+    .close-btn {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+    
+    /* Desactivar hover en dispositivos táctiles */
+    .moment-card:hover {
+        transform: none;
+    }
+    
+    .moment-card:active {
+        transform: scale(0.98);
+    }
+    
+    .cta-button:active {
+        transform: scale(0.95);
+    }
+    
+    .response-btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ============================================
+   RESPONSIVE - ALTA RESOLUCIÓN
+   ============================================ */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .moments-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 50px;
+    }
+    
+    .letter-paper {
+        padding: 70px 60px;
     }
 }
 

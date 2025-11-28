@@ -166,8 +166,8 @@ function handleResponse(response) {
     
     if (response === 'yes') {
         // Respuesta positiva
-        finalTitle.textContent = '¡Eres Mi Todo! ❤️';
-        finalText.textContent = 'No puedo expresar la felicidad que siento en este momento. Prometo hacerte sonreír cada día, estar a tu lado en los buenos y malos momentos, y amarte con todo mi corazón. ¡Gracias por decir que sí!';
+        finalTitle.textContent = '¡Eres Mi Todo, Vivi! ❤️';
+        finalText.textContent = 'Mi amor, mi cariño, mi vida, mi luz, mi gatita... No puedo expresar la felicidad que siento en este momento. Prometo hacerte sonreír cada día, estar a tu lado en los buenos y malos momentos, y amarte con todo mi corazón. ¡Gracias por decir que sí, Vivi!';
         
         // Confetti masivo
         triggerConfetti();
@@ -182,8 +182,8 @@ function handleResponse(response) {
         
     } else if (response === 'maybe') {
         // Respuesta de "lo hablamos después"
-        finalTitle.textContent = 'Entiendo Perfectamente 💭';
-        finalText.textContent = 'Respeto tu decisión y el tiempo que necesites. Estaré aquí cuando quieras hablar. Lo importante es que sepas lo que siento por ti.';
+        finalTitle.textContent = 'Entiendo Perfectamente, Vivi 💭';
+        finalText.textContent = 'Mi amor, respeto tu decisión y el tiempo que necesites. Estaré aquí cuando quieras hablar. Lo importante es que sepas lo que siento por ti, mi cariño, mi vida, mi luz, mi gatita.';
     }
     
     // Mostrar mensaje final
@@ -206,12 +206,35 @@ function initConfettiCanvas() {
     const canvas = document.getElementById('confettiCanvas');
     if (!canvas) return;
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Función para actualizar tamaño del canvas
+    function updateCanvasSize() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        
+        // Ajustar para alta densidad de píxeles
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        
+        // Ajustar tamaño CSS
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+    }
     
+    updateCanvasSize();
+    
+    // Optimizar resize con debounce
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(updateCanvasSize, 250);
+    });
+    
+    // Actualizar en cambio de orientación
+    window.addEventListener('orientationchange', () => {
+        setTimeout(updateCanvasSize, 100);
     });
 }
 
@@ -224,14 +247,22 @@ function triggerConfetti() {
     
     const ctx = canvas.getContext('2d');
     const confetti = [];
-    const confettiCount = 200;
+    
+    // Reducir cantidad en móviles para mejor rendimiento
+    const isMobile = window.innerWidth <= 768;
+    const confettiCount = isMobile ? 100 : 200;
     const colors = ['#ff6b9d', '#c44569', '#f8b500', '#ffd700', '#ff9ff3', '#f368e0'];
+    
+    // Obtener dimensiones reales del canvas
+    const rect = canvas.getBoundingClientRect();
+    const canvasWidth = rect.width;
+    const canvasHeight = rect.height;
     
     // Crear partículas de confetti
     for (let i = 0; i < confettiCount; i++) {
         confetti.push({
-            x: Math.random() * canvas.width,
-            y: -Math.random() * canvas.height,
+            x: Math.random() * canvasWidth,
+            y: -Math.random() * canvasHeight,
             width: Math.random() * 10 + 5,
             height: Math.random() * 10 + 5,
             speed: Math.random() * 3 + 2,
@@ -244,12 +275,18 @@ function triggerConfetti() {
     
     // Animar confetti
     function animate() {
+        // Usar dimensiones CSS para dibujar
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const drawWidth = rect.width;
+        const drawHeight = rect.height;
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         let activeCount = 0;
         
         confetti.forEach(particle => {
-            if (particle.y < canvas.height) {
+            if (particle.y < drawHeight && particle.opacity > 0) {
                 activeCount++;
                 
                 ctx.save();
@@ -282,14 +319,18 @@ function createFloatingParticles() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
     
-    for (let i = 0; i < 20; i++) {
+    // Reducir partículas en móviles para mejor rendimiento
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 10 : 20;
+    
+    for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.innerHTML = '✨';
         particle.style.position = 'absolute';
-        particle.style.fontSize = Math.random() * 20 + 10 + 'px';
+        particle.style.fontSize = Math.random() * 15 + 8 + 'px';
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
-        particle.style.opacity = Math.random() * 0.5 + 0.3;
+        particle.style.opacity = Math.random() * 0.4 + 0.2;
         particle.style.pointerEvents = 'none';
         particle.style.animation = `float ${Math.random() * 10 + 10}s infinite ease-in-out`;
         particle.style.animationDelay = Math.random() * 5 + 's';
@@ -331,11 +372,16 @@ function createHeartExplosion() {
     
     const heartSymbols = ['❤️', '💖', '💕', '💗', '💓', '💝'];
     
-    for (let i = 0; i < 50; i++) {
+    // Reducir corazones en móviles
+    const isMobile = window.innerWidth <= 768;
+    const heartCount = isMobile ? 25 : 50;
+    const maxDistance = isMobile ? 200 : 300;
+    
+    for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('div');
         heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
         heart.style.position = 'absolute';
-        heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+        heart.style.fontSize = Math.random() * 25 + 15 + 'px';
         heart.style.left = '50%';
         heart.style.top = '50%';
         heart.style.opacity = 0;
@@ -345,8 +391,8 @@ function createHeartExplosion() {
         ctaSection.appendChild(heart);
         
         setTimeout(() => {
-            const angle = (Math.PI * 2 * i) / 50;
-            const distance = Math.random() * 300 + 200;
+            const angle = (Math.PI * 2 * i) / heartCount;
+            const distance = Math.random() * maxDistance + (maxDistance * 0.5);
             heart.style.opacity = 1;
             heart.style.transform = `translate(-50%, -50%) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`;
         }, i * 30);
@@ -455,13 +501,32 @@ function playCelebrationSound() {
 // ============================================
 // EFECTOS ADICIONALES
 // ============================================
-// Efecto parallax suave en hero
-window.addEventListener('scroll', () => {
+// Efecto parallax suave en hero (solo en desktop)
+let lastScrollTop = 0;
+let ticking = false;
+
+function updateParallax() {
     const hero = document.querySelector('.hero');
-    if (hero) {
+    if (hero && window.innerWidth > 768) {
         const scrolled = window.pageYOffset;
         const rate = scrolled * 0.5;
         hero.style.transform = `translateY(${rate}px)`;
+    }
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+    }
+});
+
+// Desactivar parallax en móviles para mejor rendimiento
+window.addEventListener('resize', () => {
+    const hero = document.querySelector('.hero');
+    if (hero && window.innerWidth <= 768) {
+        hero.style.transform = 'none';
     }
 });
 
