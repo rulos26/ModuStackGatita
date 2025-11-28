@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti, Mi Amor ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Control de sonido -->
+    <button id="soundToggle" class="sound-toggle" aria-label="Activar/desactivar sonido">
+        <span id="soundIcon">🔇</span>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Eres Mi Todo</h1>
+            <p class="hero-subtitle">Desde que llegaste a mi vida, cada día es más hermoso. Tu sonrisa ilumina mi mundo y tu amor llena mi corazón de una felicidad que nunca imaginé posible.</p>
+            <button class="scroll-btn" onclick="scrollToContent()">
+                <span>Descubre más</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+        </div>
+        <div class="floating-hearts"></div>
+    </section>
+
+    <!-- Sección de Momentos -->
+    <section class="moments-section" id="moments">
+        <div class="container">
+            <h2 class="section-title">Nuestros Momentos</h2>
+            <p class="section-subtitle">Cada instante contigo es un tesoro que guardo en mi corazón</p>
+            
+            <div class="moments-grid">
+                <div class="moment-card" data-moment="1">
+                    <div class="moment-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80" 
+                             alt="Pareja abrazándose al atardecer" 
+                             class="moment-image">
+                        <div class="moment-overlay"></div>
+                    </div>
+                    <div class="moment-content">
+                        <h3>El Primer Encuentro</h3>
+                        <p>Ese día supe que algo especial había comenzado. Tu mirada me cautivó desde el primer instante.</p>
+                    </div>
+                </div>
+
+                <div class="moment-card" data-moment="2">
+                    <div class="moment-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&q=80" 
+                             alt="Pareja caminando de la mano en la playa" 
+                             class="moment-image">
+                        <div class="moment-overlay"></div>
+                    </div>
+                    <div class="moment-content">
+                        <h3>Caminando Juntos</h3>
+                        <p>Cada paso a tu lado es una aventura. Contigo, incluso el camino más simple se vuelve extraordinario.</p>
+                    </div>
+                </div>
+
+                <div class="moment-card" data-moment="3">
+                    <div class="moment-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80" 
+                             alt="Cena romántica a la luz de las velas" 
+                             class="moment-image">
+                        <div class="moment-overlay"></div>
+                    </div>
+                    <div class="moment-content">
+                        <h3>Conversaciones Sin Fin</h3>
+                        <p>Las horas pasan volando cuando estoy contigo. Tu voz es la melodía más dulce que conozco.</p>
+                    </div>
+                </div>
+
+                <div class="moment-card" data-moment="4">
+                    <div class="moment-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&q=80" 
+                             alt="Pareja contemplando el atardecer" 
+                             class="moment-image">
+                        <div class="moment-overlay"></div>
+                    </div>
+                    <div class="moment-content">
+                        <h3>Atardeceres Compartidos</h3>
+                        <p>Los colores del cielo palidecen comparados con la belleza que veo en ti cada día.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Carta -->
+    <section class="letter-section" id="letter">
+        <div class="container">
+            <div class="letter-wrapper">
+                <button class="letter-open-btn" id="letterOpenBtn">
+                    <span class="letter-icon">💌</span>
+                    <span>Abre mi carta para ti</span>
+                </button>
+                <div class="letter-content" id="letterContent">
+                    <div class="letter-paper">
+                        <div class="letter-header">
+                            <h2>Mi Querida Amor</h2>
+                            <p class="letter-date" id="letterDate"></p>
+                        </div>
+                        <div class="letter-body">
+                            <p>No sé cómo empezar a expresar todo lo que siento por ti. Desde que entraste en mi vida, todo cambió para mejor. Tu risa es contagiosa, tu bondad me inspira y tu amor me hace sentir el hombre más afortunado del mundo.</p>
+                            <p>Cada mañana me despierto agradecido por tenerte cerca. Cada noche me duermo pensando en lo feliz que soy. Eres mi compañera, mi mejor amiga, mi inspiración y mi hogar.</p>
+                            <p>Quiero construir mil recuerdos más contigo. Quiero reír, soñar y crecer a tu lado. Quiero ser la persona que te haga sonreír todos los días y que esté ahí para ti, siempre.</p>
+                            <p>Eres especial de una manera que las palabras no pueden describir. Eres única, hermosa, inteligente y perfecta tal como eres. Y quiero pasar el resto de mis días demostrándote cuánto te amo.</p>
+                            <p class="letter-signature">Con todo mi amor,<br><span class="signature-name">Para siempre</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección CTA Principal -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-heart-icon">💖</div>
+                <h2 class="cta-title">Hay algo que quiero preguntarte...</h2>
+                <p class="cta-subtitle">Después de todo este tiempo juntos, después de todos estos momentos especiales...</p>
+                <button class="cta-button" id="proposalBtn">
+                    <span class="cta-button-text">¿Quieres ser mi novia?</span>
+                    <span class="cta-button-heart">❤️</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Respuesta -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tu respuesta</h3>
+            </div>
+            <div class="modal-body">
+                <p>¿Qué te gustaría decir?</p>
+                <div class="response-buttons">
+                    <button class="response-btn response-yes" data-response="yes">
+                        <span>¡Sí! ❤️</span>
+                    </button>
+                    <button class="response-btn response-maybe" data-response="maybe">
+                        <span>Lo hablamos después 💭</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje Final -->
+    <div class="final-message" id="finalMessage">
+        <div class="final-content">
+            <div class="final-heart-animation">💕</div>
+            <h2 id="finalTitle"></h2>
+            <p id="finalText"></p>
+            <button class="close-btn" onclick="closeFinalMessage()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Canvas para confetti -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Audio para sonido romántico -->
+    <audio id="romanticSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZURAJR6Pj8L1sJAUwgM/y2IU5CB1ou+3nn00QDFCn4/C2YxwGOJLX8sx5LAUkd8fw3ZBACxRetOnrqFUUCkaf4PK+bCEFMYfR89OCMwYebsDv45lREAlHo+PwvWwkBTCAz/LYhTkIHWi77eefTRAMUKfj8LZjHAY4ktfy" type="audio/wav">
+    </audio>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
