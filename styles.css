@@ -436,16 +436,16 @@ body {
 }
 
 /* ============================================
-   SECCIÓN DE PASIÓN Y AMOR
+   SECCIÓN DE AMOR
    ============================================ */
-.passion-section {
+.love-section {
     padding: 120px 0;
     background: linear-gradient(135deg, var(--rojo-borgoña) 0%, var(--rojo-oscuro) 50%, #4a0e1f 100%);
     position: relative;
     overflow: hidden;
 }
 
-.passion-section::before {
+.love-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -458,46 +458,14 @@ body {
     z-index: 1;
 }
 
-.passion-background-hearts {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.passion-background-hearts::before,
-.passion-background-hearts::after {
-    content: '💕';
-    position: absolute;
-    font-size: 40px;
-    opacity: 0.1;
-    animation: floatPassion 20s infinite ease-in-out;
-}
-
-.passion-background-hearts::before {
-    left: 10%;
-    top: 20%;
-    animation-delay: 0s;
-}
-
-.passion-background-hearts::after {
-    left: 85%;
-    top: 60%;
-    animation-delay: 7s;
-}
-
-.passion-header {
+.love-header {
     text-align: center;
     margin-bottom: 80px;
     position: relative;
     z-index: 2;
 }
 
-.passion-title {
+.love-title {
     font-family: var(--font-serif);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     color: var(--blanco);
@@ -508,7 +476,7 @@ body {
     animation: fadeInUp 1s ease-out;
 }
 
-.passion-subtitle {
+.love-subtitle {
     font-size: clamp(1.1rem, 2.5vw, 1.6rem);
     color: var(--dorado-claro);
     font-weight: 300;
@@ -517,7 +485,7 @@ body {
     animation: fadeInUp 1.2s ease-out;
 }
 
-.passion-content {
+.love-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
@@ -526,7 +494,7 @@ body {
     z-index: 2;
 }
 
-.passion-card {
+.love-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 25px;
@@ -541,7 +509,7 @@ body {
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.passion-card::before {
+.love-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -552,41 +520,33 @@ body {
     transition: left 0.6s ease;
 }
 
-.passion-card:hover::before {
+.love-card:hover::before {
     left: 100%;
 }
 
-.passion-card:hover {
+.love-card:hover {
     transform: translateY(-10px) scale(1.02);
     box-shadow: 0 25px 70px rgba(212, 175, 55, 0.4);
     border-color: var(--dorado);
 }
 
-.passion-card-1 {
+.love-card-1 {
     animation-delay: 0.1s;
 }
 
-.passion-card-2 {
+.love-card-2 {
     animation-delay: 0.2s;
 }
 
-.passion-card-3 {
+.love-card-3 {
     animation-delay: 0.3s;
 }
 
-.passion-card-4 {
+.love-card-4 {
     animation-delay: 0.4s;
 }
 
-.passion-card-5 {
-    animation-delay: 0.5s;
-}
-
-.passion-card-6 {
-    animation-delay: 0.6s;
-}
-
-.passion-card-icon {
+.love-card-icon {
     font-size: 3.5rem;
     text-align: center;
     margin-bottom: 20px;
@@ -594,7 +554,7 @@ body {
     filter: drop-shadow(0 4px 8px rgba(139, 21, 56, 0.3));
 }
 
-.passion-card-title {
+.love-card-title {
     font-family: var(--font-serif);
     font-size: clamp(1.8rem, 3vw, 2.3rem);
     color: var(--rojo-borgoña);
@@ -604,67 +564,18 @@ body {
     letter-spacing: 1px;
 }
 
-.passion-card-text {
+.love-card-text {
     text-align: center;
-}
-
-.passion-poem {
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     line-height: 2;
     color: var(--rojo-oscuro);
     font-weight: 300;
-    font-style: italic;
     margin: 0;
 }
 
-.passion-poem em {
+.love-card-text em {
     font-style: italic;
     color: var(--rojo-borgoña);
-}
-
-.passion-final-message {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(212, 175, 55, 0.1) 100%);
-    backdrop-filter: blur(15px);
-    border-radius: 30px;
-    padding: 60px 50px;
-    text-align: center;
-    border: 3px solid rgba(212, 175, 55, 0.4);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    position: relative;
-    z-index: 2;
-    animation: fadeInUp 1.5s ease-out;
-}
-
-.passion-final-heart {
-    font-size: 5rem;
-    margin-bottom: 30px;
-    animation: heartbeat 1.5s infinite, rotate 4s infinite linear;
-    filter: drop-shadow(0 6px 12px rgba(212, 175, 55, 0.5));
-}
-
-.passion-final-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--blanco);
-    margin-bottom: 30px;
-    font-weight: 700;
-    text-shadow: 2px 4px 15px rgba(0, 0, 0, 0.5);
-    letter-spacing: 1px;
-}
-
-.passion-final-text {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    line-height: 2;
-    color: var(--dorado-claro);
-    font-weight: 300;
-    text-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.passion-final-text strong {
-    color: var(--dorado);
-    font-weight: 700;
-    font-size: 1.2em;
-    text-shadow: 2px 3px 15px rgba(212, 175, 55, 0.6);
 }
 
 @keyframes floatPassion {
@@ -1222,53 +1133,33 @@ body {
         font-size: 1.3rem;
     }
     
-    /* Sección de Pasión */
-    .passion-section {
+    /* Sección de Amor */
+    .love-section {
         padding: 80px 0;
     }
     
-    .passion-content {
+    .love-content {
         grid-template-columns: 1fr;
         gap: 30px;
         margin-bottom: 60px;
     }
     
-    .passion-card {
+    .love-card {
         padding: 30px 25px;
     }
     
-    .passion-card-icon {
+    .love-card-icon {
         font-size: 2.5rem;
         margin-bottom: 15px;
     }
     
-    .passion-card-title {
+    .love-card-title {
         font-size: clamp(1.5rem, 3vw, 2rem);
         margin-bottom: 20px;
     }
     
-    .passion-poem {
+    .love-card-text {
         font-size: clamp(0.95rem, 2vw, 1.1rem);
-        line-height: 1.8;
-    }
-    
-    .passion-final-message {
-        padding: 40px 30px;
-        margin: 0 10px;
-    }
-    
-    .passion-final-heart {
-        font-size: 3.5rem;
-        margin-bottom: 20px;
-    }
-    
-    .passion-final-title {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        margin-bottom: 25px;
-    }
-    
-    .passion-final-text {
-        font-size: clamp(1rem, 2vw, 1.2rem);
         line-height: 1.8;
     }
     
@@ -1511,70 +1402,48 @@ body {
         margin-top: 8px;
     }
     
-    /* Sección de Pasión */
-    .passion-section {
+    /* Sección de Amor */
+    .love-section {
         padding: 60px 0;
     }
     
-    .passion-header {
+    .love-header {
         margin-bottom: 50px;
         padding: 0 15px;
     }
     
-    .passion-title {
+    .love-title {
         font-size: clamp(2rem, 5vw, 3rem);
         margin-bottom: 20px;
     }
     
-    .passion-subtitle {
+    .love-subtitle {
         font-size: clamp(1rem, 2.5vw, 1.3rem);
     }
     
-    .passion-content {
+    .love-content {
         gap: 25px;
         margin-bottom: 50px;
         padding: 0 15px;
     }
     
-    .passion-card {
+    .love-card {
         padding: 25px 20px;
         border-radius: 20px;
     }
     
-    .passion-card-icon {
+    .love-card-icon {
         font-size: 2rem;
         margin-bottom: 15px;
     }
     
-    .passion-card-title {
+    .love-card-title {
         font-size: clamp(1.3rem, 3vw, 1.8rem);
         margin-bottom: 18px;
     }
     
-    .passion-poem {
+    .love-card-text {
         font-size: clamp(0.9rem, 2vw, 1rem);
-        line-height: 1.7;
-    }
-    
-    .passion-final-message {
-        padding: 35px 25px;
-        margin: 0;
-        border-radius: 25px;
-        border-width: 2px;
-    }
-    
-    .passion-final-heart {
-        font-size: 3rem;
-        margin-bottom: 20px;
-    }
-    
-    .passion-final-title {
-        font-size: clamp(1.5rem, 4vw, 2rem);
-        margin-bottom: 20px;
-    }
-    
-    .passion-final-text {
-        font-size: clamp(0.95rem, 2vw, 1.1rem);
         line-height: 1.7;
     }
     

@@ -572,9 +572,9 @@ function loadPassionSection() {
 }
 
 function setupPassionAnimations() {
-    // Configurar animaciones para las tarjetas de pasión cargadas dinámicamente
-    const passionCards = document.querySelectorAll('.passion-card');
-    if (passionCards.length === 0) return;
+    // Configurar animaciones para las tarjetas de amor cargadas dinámicamente
+    const loveCards = document.querySelectorAll('.love-card');
+    if (loveCards.length === 0) return;
     
     const observerOptions = {
         threshold: 0.1,
@@ -590,35 +590,26 @@ function setupPassionAnimations() {
         });
     }, observerOptions);
     
-    // Observer adicional para efectos especiales en tarjetas de pasión
-    const passionObserver = new IntersectionObserver((entries) => {
+    // Observer adicional para efectos especiales en tarjetas de amor
+    const loveObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('passion-visible');
+                entry.target.classList.add('love-visible');
                 // Crear partículas de corazones al aparecer
-                if (entry.target.classList.contains('passion-card')) {
+                if (entry.target.classList.contains('love-card')) {
                     createPassionParticles(entry.target);
                 }
             }
         });
     }, { threshold: 0.3 });
     
-    passionCards.forEach((card, index) => {
+    loveCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(40px)';
         card.style.transition = `all 0.8s ease-out ${index * 0.1}s`;
         observer.observe(card);
-        passionObserver.observe(card);
+        loveObserver.observe(card);
     });
-    
-    // Observar mensaje final de pasión
-    const passionFinal = document.querySelector('.passion-final-message');
-    if (passionFinal) {
-        passionFinal.style.opacity = '0';
-        passionFinal.style.transform = 'translateY(40px)';
-        passionFinal.style.transition = 'all 1s ease-out';
-        observer.observe(passionFinal);
-    }
 }
 
 // ============================================
