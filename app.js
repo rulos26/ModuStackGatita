@@ -550,11 +550,16 @@ function loadPassionSection() {
     const passionContainer = document.getElementById('passion-container');
     if (!passionContainer) return;
     
-    fetch('passion.html')
+    fetch('passion.html', {
+        headers: {
+            'Content-Type': 'text/html; charset=utf-8'
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('No se pudo cargar la sección de pasión');
             }
+            // Asegurar que se lea como UTF-8
             return response.text();
         })
         .then(html => {
