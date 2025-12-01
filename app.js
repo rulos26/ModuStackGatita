@@ -548,7 +548,10 @@ function playCelebrationSound() {
 // ============================================
 function loadPassionSection() {
     const passionContainer = document.getElementById('passion-container');
-    if (!passionContainer) return;
+    if (!passionContainer) {
+        console.error('No se encontró el contenedor passion-container');
+        return;
+    }
     
     fetch('passion.html', {
         headers: {
@@ -563,7 +566,31 @@ function loadPassionSection() {
             return response.text();
         })
         .then(html => {
+            if (!html || html.trim() === '') {
+                throw new Error('El archivo passion.html está vacío');
+            }
+            
             passionContainer.innerHTML = html;
+            
+            // Verificar que el contenido se insertó correctamente
+            const loveSection = passionContainer.querySelector('.love-section');
+            if (!loveSection) {
+                console.error('No se encontró .love-section en el HTML cargado');
+                console.log('HTML cargado:', html.substring(0, 200));
+                return;
+            }
+            
+            // Verificar que los estilos se están aplicando
+            const computedStyle = window.getComputedStyle(loveSection);
+            console.log('Estilos aplicados a .love-section:', {
+                padding: computedStyle.padding,
+                background: computedStyle.background,
+                display: computedStyle.display
+            });
+            
+            // Forzar recálculo de estilos
+            void passionContainer.offsetHeight;
+            void loveSection.offsetHeight;
             
             // Reinicializar animaciones después de cargar el contenido
             setTimeout(() => {
@@ -572,7 +599,7 @@ function loadPassionSection() {
         })
         .catch(error => {
             console.error('Error al cargar passion.html:', error);
-            passionContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--rojo-borgoña);">No se pudo cargar la sección de pasión.</p>';
+            passionContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--rojo-borgoña);">No se pudo cargar la sección de pasión. Error: ' + error.message + '</p>';
         });
 }
 
