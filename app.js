@@ -19,6 +19,9 @@ function initializeApp() {
     
     // Crear partículas flotantes
     createFloatingParticles();
+    
+    // Cargar sección de pasión dinámicamente
+    loadPassionSection();
 }
 
 function setupEventListeners() {
@@ -366,6 +369,45 @@ function createLetterParticles() {
     }
 }
 
+function createPassionParticles(element) {
+    if (!element) return;
+    
+    const heartSymbols = ['💕', '💖', '💗', '💓', '💝', '❤️'];
+    const particleCount = 8;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+        particle.style.position = 'absolute';
+        particle.style.fontSize = Math.random() * 15 + 12 + 'px';
+        particle.style.left = '50%';
+        particle.style.top = '50%';
+        particle.style.opacity = '0';
+        particle.style.pointerEvents = 'none';
+        particle.style.transform = 'translate(-50%, -50%)';
+        particle.style.transition = 'all 2s ease-out';
+        particle.style.zIndex = '1000';
+        element.style.position = 'relative';
+        element.appendChild(particle);
+        
+        setTimeout(() => {
+            const angle = (Math.PI * 2 * i) / particleCount;
+            const distance = Math.random() * 80 + 60;
+            particle.style.opacity = '0.8';
+            particle.style.transform = `translate(-50%, -50%) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`;
+        }, i * 50);
+        
+        setTimeout(() => {
+            particle.style.opacity = '0';
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, 2000);
+        }, 2500);
+    }
+}
+
 function createHeartExplosion() {
     const ctaSection = document.querySelector('.cta-section');
     if (!ctaSection) return;
@@ -439,6 +481,9 @@ function setupScrollAnimations() {
         card.style.transition = 'all 0.6s ease-out';
         observer.observe(card);
     });
+    
+    // Las tarjetas de pasión se configuran en setupPassionAnimations()
+    // después de que se cargue el contenido dinámicamente desde passion.html
 }
 
 // ============================================
@@ -495,6 +540,84 @@ function playCelebrationSound() {
         });
     } catch (e) {
         console.log('No se pudo reproducir el sonido:', e);
+    }
+}
+
+// ============================================
+// CARGA DINÁMICA DE SECCIONES
+// ============================================
+function loadPassionSection() {
+    const passionContainer = document.getElementById('passion-container');
+    if (!passionContainer) return;
+    
+    fetch('passion.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No se pudo cargar la sección de pasión');
+            }
+            return response.text();
+        })
+        .then(html => {
+            passionContainer.innerHTML = html;
+            
+            // Reinicializar animaciones después de cargar el contenido
+            setTimeout(() => {
+                setupPassionAnimations();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error al cargar passion.html:', error);
+            passionContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--rojo-borgoña);">No se pudo cargar la sección de pasión.</p>';
+        });
+}
+
+function setupPassionAnimations() {
+    // Configurar animaciones para las tarjetas de pasión cargadas dinámicamente
+    const passionCards = document.querySelectorAll('.passion-card');
+    if (passionCards.length === 0) return;
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observer adicional para efectos especiales en tarjetas de pasión
+    const passionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('passion-visible');
+                // Crear partículas de corazones al aparecer
+                if (entry.target.classList.contains('passion-card')) {
+                    createPassionParticles(entry.target);
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    passionCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = `all 0.8s ease-out ${index * 0.1}s`;
+        observer.observe(card);
+        passionObserver.observe(card);
+    });
+    
+    // Observar mensaje final de pasión
+    const passionFinal = document.querySelector('.passion-final-message');
+    if (passionFinal) {
+        passionFinal.style.opacity = '0';
+        passionFinal.style.transform = 'translateY(40px)';
+        passionFinal.style.transition = 'all 1s ease-out';
+        observer.observe(passionFinal);
     }
 }
 
