@@ -360,11 +360,40 @@ header('Content-Type: text/html; charset=UTF-8');
             margin-top: 20px;
             color: var(--rojo-profundo);
             font-weight: 600;
+            line-height: 1.6;
+            text-align: center;
         }
         
         .success-message.show {
             display: block;
             animation: fadeIn 0.3s ease;
+        }
+        
+        .success-message.yes {
+            background: linear-gradient(135deg, #ffd6e8 0%, #ffb3d9 100%);
+            color: var(--rojo-profundo);
+        }
+        
+        .success-message.maybe {
+            background: linear-gradient(135deg, var(--morado-claro) 0%, #e6d5ff 100%);
+            color: var(--morado-profundo);
+        }
+        
+        .success-message.no {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
+            color: var(--rojo-profundo);
+        }
+        
+        .respuesta-info.yes {
+            background: linear-gradient(135deg, #ffd6e8 0%, #ffb3d9 100%);
+        }
+        
+        .respuesta-info.maybe {
+            background: linear-gradient(135deg, var(--morado-claro) 0%, #e6d5ff 100%);
+        }
+        
+        .respuesta-info.no {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
         }
         
         /* Responsive Design - Tablets */
@@ -568,7 +597,7 @@ header('Content-Type: text/html; charset=UTF-8');
         </div>
         
         <div class="respuesta-info" id="respuestaInfo">
-            Ya respondiste: <strong id="respuestaTexto"></strong> ❤️
+            <div id="respuestaTexto"></div>
         </div>
         
         <div style="text-align: center;">
@@ -601,6 +630,26 @@ header('Content-Type: text/html; charset=UTF-8');
         const respuestaInfo = document.getElementById('respuestaInfo');
         const respuestaTexto = document.getElementById('respuestaTexto');
         
+        // Función para obtener el mensaje según la respuesta
+        function obtenerMensajeRespuesta(respuesta) {
+            const mensajes = {
+                'Sí': '¡Eres mi todo, Vivi! ❤️<br>No puedo expresar la felicidad que siento en este momento. Prometo hacerte sonreír cada día, estar a tu lado siempre y amarte con todo mi corazón. ¡Gracias por decir que sí, mi amor! 💕',
+                'Lo voy a pensar': 'Entiendo perfectamente, Vivi 💜<br>Estaré aquí esperando, con paciencia y cariño. Cada día que pase será una oportunidad para demostrarte lo que siento por ti. No hay prisa, solo quiero que sepas que estaré aquí cuando quieras hablar. Te adoro 💖',
+                'No': 'No me rendiré, Vivi 💪❤️<br>Entiendo tu respuesta, pero quiero que sepas que no voy a darme por vencido. Cada día trabajaré para demostrarte lo especial que eres para mí. Confío en que con el tiempo, ese "no" se convertirá en un "sí" lleno de amor. Te seguiré esperando con todo mi corazón 💕'
+            };
+            return mensajes[respuesta] || 'Gracias por tu respuesta ❤️';
+        }
+        
+        // Función para obtener el texto corto según la respuesta
+        function obtenerTextoRespuesta(respuesta) {
+            const textos = {
+                'Sí': 'Sí ❤️',
+                'Lo voy a pensar': 'Lo voy a pensar 💭',
+                'No': 'No'
+            };
+            return textos[respuesta] || respuesta;
+        }
+        
         // Verificar si ya existe una respuesta al cargar la página
         function verificarRespuesta() {
             fetch(`verificar_respuesta.php?archivo=${ARCHIVO_ACTUAL}`)
@@ -611,9 +660,11 @@ header('Content-Type: text/html; charset=UTF-8');
                         openModalBtn.disabled = true;
                         openModalBtn.textContent = 'Ya respondiste ❤️';
                         
-                        // Mostrar información de la respuesta
-                        respuestaTexto.textContent = data.respuesta;
+                        // Mostrar información de la respuesta con mensaje personalizado
+                        const mensajeCompleto = obtenerMensajeRespuesta(data.respuesta);
+                        respuestaTexto.innerHTML = mensajeCompleto;
                         respuestaInfo.classList.add('show');
+                        respuestaInfo.classList.add(data.respuesta === 'Sí' ? 'yes' : data.respuesta === 'Lo voy a pensar' ? 'maybe' : 'no');
                     }
                 })
                 .catch(error => {
@@ -660,6 +711,20 @@ header('Content-Type: text/html; charset=UTF-8');
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        // Obtener mensaje personalizado según la respuesta
+                        const mensajePersonalizado = obtenerMensajeRespuesta(respuesta);
+                        successMessage.innerHTML = mensajePersonalizado;
+                        
+                        // Agregar clase según el tipo de respuesta
+                        successMessage.className = 'success-message show';
+                        if (respuesta === 'Sí') {
+                            successMessage.classList.add('yes');
+                        } else if (respuesta === 'Lo voy a pensar') {
+                            successMessage.classList.add('maybe');
+                        } else if (respuesta === 'No') {
+                            successMessage.classList.add('no');
+                        }
+                        
                         successMessage.classList.add('show');
                         
                         // Ocultar botones de respuesta
@@ -671,11 +736,12 @@ header('Content-Type: text/html; charset=UTF-8');
                         openModalBtn.disabled = true;
                         openModalBtn.textContent = 'Ya respondiste ❤️';
                         
-                        // Mostrar información de la respuesta
-                        respuestaTexto.textContent = respuesta;
+                        // Mostrar información de la respuesta con mensaje completo
+                        respuestaTexto.innerHTML = mensajePersonalizado;
                         respuestaInfo.classList.add('show');
+                        respuestaInfo.classList.add(respuesta === 'Sí' ? 'yes' : respuesta === 'Lo voy a pensar' ? 'maybe' : 'no');
                         
-                        // Cerrar modal después de 2 segundos
+                        // Cerrar modal después de 5 segundos (más tiempo para leer el mensaje)
                         setTimeout(() => {
                             document.getElementById('modalOverlay').classList.remove('show');
                             successMessage.classList.remove('show');
@@ -683,7 +749,7 @@ header('Content-Type: text/html; charset=UTF-8');
                             document.querySelectorAll('.response-btn').forEach(btn => {
                                 btn.style.display = 'block';
                             });
-                        }, 2000);
+                        }, 5000);
                     } else {
                         alert('Hubo un error al guardar tu respuesta. Por favor, intenta de nuevo.');
                     }
