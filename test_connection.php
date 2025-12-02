@@ -211,7 +211,8 @@ ini_set('display_errors', 1);
             }
             
             // Consulta para obtener información de la base de datos
-            $query = "SELECT DATABASE() as db_name, VERSION() as version, NOW() as current_time";
+            // Nota: Usamos 'server_time' en lugar de 'current_time' porque current_time es una palabra reservada
+            $query = "SELECT DATABASE() as db_name, VERSION() as version, NOW() as server_time";
             $result = $conn->query($query);
             
             if ($result && $result->num_rows > 0) {
@@ -220,7 +221,7 @@ ini_set('display_errors', 1);
                 echo '<h4>Información Adicional:</h4>';
                 echo '<p><strong>Base de datos actual:</strong> ' . htmlspecialchars($row['db_name']) . '</p>';
                 echo '<p><strong>Versión del servidor:</strong> ' . htmlspecialchars($row['version']) . '</p>';
-                echo '<p><strong>Fecha y hora del servidor:</strong> ' . htmlspecialchars($row['current_time']) . '</p>';
+                echo '<p><strong>Fecha y hora del servidor:</strong> ' . htmlspecialchars($row['server_time']) . '</p>';
                 echo '</div>';
             }
             
