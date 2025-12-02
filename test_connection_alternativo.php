@@ -115,15 +115,18 @@ $hosts = [
             echo '<div class="test-item">';
             echo '<strong>Probando conexión con host: <code>' . htmlspecialchars($host) . '</code></strong>';
             
-            $conn = @new mysqli($host, $db_user, $db_pass, $db_name);
-            
-            if ($conn->connect_error) {
-                echo '<div class="test-result error">';
-                echo '<strong>❌ Error de conexión</strong><br>';
-                echo 'Mensaje: ' . htmlspecialchars($conn->connect_error);
-                echo '</div>';
-                $conn->close();
-            } else {
+            try {
+                $conn = new mysqli($host, $db_user, $db_pass, $db_name);
+                
+                if ($conn->connect_error) {
+                    echo '<div class="test-result error">';
+                    echo '<strong>❌ Error de conexión</strong><br>';
+                    echo 'Mensaje: ' . htmlspecialchars($conn->connect_error);
+                    echo '</div>';
+                    if ($conn) {
+                        $conn->close();
+                    }
+                } else {
                 echo '<div class="test-result success">';
                 echo '<strong>✅ ¡Conexión exitosa!</strong><br>';
                 echo 'Host: <code>' . htmlspecialchars($host) . '</code><br>';
@@ -136,17 +139,28 @@ $hosts = [
                     echo '<br>Tablas encontradas: ' . $result->num_rows;
                 }
                 
+                    echo '</div>';
+                    $conn->close();
+                    $connectionFound = true;
+                    
+                    // Mostrar recomendación
+                    echo '<div class="test-result info">';
+                    echo '<strong>💡 Recomendación:</strong><br>';
+                    echo 'Usa este host en tu archivo <code>config.php</code>: <code>' . htmlspecialchars($host) . '</code>';
+                    echo '</div>';
+                    
+                    break; // Si encontramos una conexión exitosa, salir del bucle
+                }
+            } catch (mysqli_sql_exception $e) {
+                echo '<div class="test-result error">';
+                echo '<strong>❌ Error de conexión (Excepción)</strong><br>';
+                echo 'Mensaje: ' . htmlspecialchars($e->getMessage());
                 echo '</div>';
-                $conn->close();
-                $connectionFound = true;
-                
-                // Mostrar recomendación
-                echo '<div class="test-result info">';
-                echo '<strong>💡 Recomendación:</strong><br>';
-                echo 'Usa este host en tu archivo <code>config.php</code>: <code>' . htmlspecialchars($host) . '</code>';
+            } catch (Exception $e) {
+                echo '<div class="test-result error">';
+                echo '<strong>❌ Error inesperado</strong><br>';
+                echo 'Mensaje: ' . htmlspecialchars($e->getMessage());
                 echo '</div>';
-                
-                break; // Si encontramos una conexión exitosa, salir del bucle
             }
             
             echo '</div>';
