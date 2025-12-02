@@ -8,9 +8,10 @@
 // NOTA: En Hostinger, cuando el script PHP está en el mismo servidor que la BD,
 // usa '127.0.0.1' en lugar de la IP externa
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'u494150416_gatitia');
-define('DB_PASS', '0382646740Ju*');
-define('DB_NAME', 'u494150416_gatitia');
+define('DB_PORT', '3306');
+define('DB_USER', 'u494150416_ZLlua');
+define('DB_PASS', '!$a2-b2}^Kf.!Gj0');
+define('DB_NAME', 'u494150416_LilLT');
 
 /**
  * Función para obtener la conexión a la base de datos
@@ -19,7 +20,8 @@ define('DB_NAME', 'u494150416_gatitia');
 function getDBConnection() {
     // Crear conexión usando 127.0.0.1 (recomendado para Hostinger cuando PHP está en el mismo servidor)
     try {
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        // Conectar con el puerto especificado
+        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
         
         // Verificar conexión
         if ($conn->connect_error) {
