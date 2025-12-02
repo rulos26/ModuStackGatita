@@ -1,0 +1,15 @@
+# Configuración para la carpeta public
+# Permite acceso a archivos estáticos
+
+<IfModule mod_headers.c>
+    # Cache para archivos estáticos
+    <FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+</IfModule>
+
+# Permitir acceso a archivos HTML
+<FilesMatch "\.(html|htm)$">
+    Allow from all
+</FilesMatch>
+

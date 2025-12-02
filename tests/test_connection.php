@@ -4,8 +4,9 @@
  * Hostinger - MySQL
  */
 
-// Incluir archivo de configuración
-require_once 'config.php';
+// Incluir archivo de configuración y funciones de base de datos
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/database.php';
 
 // Encabezados para mostrar errores (solo en desarrollo)
 error_reporting(E_ALL);

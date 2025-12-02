@@ -1,0 +1,8 @@
+# Proteger la carpeta de configuración
+# Denegar acceso directo a archivos de configuración
+
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+

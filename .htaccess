@@ -1,0 +1,10 @@
+# Redirección para que public sea el directorio raíz
+# Si estás usando Apache, descomenta las siguientes líneas:
+
+# RewriteEngine On
+# RewriteCond %{REQUEST_URI} !^/public/
+# RewriteRule ^(.*)$ /public/$1 [L]
+
+# Para desarrollo local, puedes acceder directamente a /public/index.html
+# En producción, configura el servidor web para que apunte a la carpeta /public
+

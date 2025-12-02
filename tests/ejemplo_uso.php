@@ -4,7 +4,8 @@
  * Este archivo muestra cómo usar la función getDBConnection() en tus scripts
  */
 
-require_once 'config.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../includes/database.php';
 
 // Ejemplo 1: Consulta simple
 function ejemploConsultaSimple() {
