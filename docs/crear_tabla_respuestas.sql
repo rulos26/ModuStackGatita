@@ -6,9 +6,12 @@
 -- Crear la tabla respuestas_gatita si no existe
 CREATE TABLE IF NOT EXISTS respuestas_gatita (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    archivo VARCHAR(100) NOT NULL,
     respuesta VARCHAR(50) NOT NULL,
     fecha_respuesta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_fecha (fecha_respuesta)
+    INDEX idx_fecha (fecha_respuesta),
+    INDEX idx_archivo (archivo),
+    UNIQUE KEY unique_archivo (archivo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Verificar que la tabla se creó correctamente

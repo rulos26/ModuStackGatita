@@ -179,6 +179,34 @@ header('Content-Type: text/html; charset=UTF-8');
             transform: translateY(-1px);
         }
         
+        .romantic-button:disabled {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+        
+        .romantic-button:disabled:hover {
+            transform: none;
+            box-shadow: 0 8px 20px rgba(139, 21, 56, 0.3);
+        }
+        
+        .respuesta-info {
+            display: none;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--rosado-claro) 0%, var(--morado-claro) 100%);
+            border-radius: 15px;
+            margin-top: 20px;
+            color: var(--rojo-profundo);
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .respuesta-info.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
         .back-link {
             display: inline-block;
             text-align: center;
@@ -339,21 +367,148 @@ header('Content-Type: text/html; charset=UTF-8');
             animation: fadeIn 0.3s ease;
         }
         
-        @media (max-width: 768px) {
+        /* Responsive Design - Tablets */
+        @media (max-width: 1024px) {
             .container {
-                padding: 30px 20px;
+                padding: 40px 30px;
             }
             
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .poem-content {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Responsive Design - Móviles */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+            
+            .header {
+                margin-bottom: 30px;
+                padding-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header .date {
+                font-size: 0.95rem;
             }
             
             .poem-content {
                 font-size: 1rem;
+                padding: 20px 0;
+                line-height: 1.8;
+            }
+            
+            .poem-content p {
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+            
+            .poem-content .verse {
+                font-size: 1.1rem;
+            }
+            
+            .poem-content .signature {
+                font-size: 0.95rem;
+            }
+            
+            .heart-icon {
+                font-size: 1.5rem;
+            }
+            
+            .romantic-button {
+                padding: 15px 30px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 300px;
             }
             
             .modal-content {
                 padding: 30px 20px;
+                width: 95%;
+                max-width: 400px;
+            }
+            
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-content .question {
+                font-size: 1.2rem;
+            }
+            
+            .response-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .back-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Responsive Design - Móviles pequeños */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .poem-content {
+                font-size: 0.9rem;
+            }
+            
+            .poem-content .verse {
+                font-size: 1rem;
+            }
+            
+            .romantic-button {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                padding: 25px 15px;
+            }
+            
+            .modal-content h2 {
+                font-size: 1.3rem;
+            }
+            
+            .modal-content .question {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Responsive Design - Orientación landscape en móviles */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .poem-content {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -412,6 +567,10 @@ header('Content-Type: text/html; charset=UTF-8');
             </button>
         </div>
         
+        <div class="respuesta-info" id="respuestaInfo">
+            Ya respondiste: <strong id="respuestaTexto"></strong> ❤️
+        </div>
+        
         <div style="text-align: center;">
             <a href="../index.html" class="back-link">← Volver al inicio</a>
         </div>
@@ -437,9 +596,39 @@ header('Content-Type: text/html; charset=UTF-8');
     </div>
     
     <script>
+        const ARCHIVO_ACTUAL = 'dia_1';
+        const openModalBtn = document.getElementById('openModalBtn');
+        const respuestaInfo = document.getElementById('respuestaInfo');
+        const respuestaTexto = document.getElementById('respuestaTexto');
+        
+        // Verificar si ya existe una respuesta al cargar la página
+        function verificarRespuesta() {
+            fetch(`verificar_respuesta.php?archivo=${ARCHIVO_ACTUAL}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.tiene_respuesta) {
+                        // Desactivar el botón
+                        openModalBtn.disabled = true;
+                        openModalBtn.textContent = 'Ya respondiste ❤️';
+                        
+                        // Mostrar información de la respuesta
+                        respuestaTexto.textContent = data.respuesta;
+                        respuestaInfo.classList.add('show');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al verificar respuesta:', error);
+                });
+        }
+        
+        // Verificar respuesta al cargar la página
+        verificarRespuesta();
+        
         // Abrir modal
-        document.getElementById('openModalBtn').addEventListener('click', function() {
-            document.getElementById('modalOverlay').classList.add('show');
+        openModalBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                document.getElementById('modalOverlay').classList.add('show');
+            }
         });
         
         // Cerrar modal
@@ -466,7 +655,7 @@ header('Content-Type: text/html; charset=UTF-8');
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: 'respuesta=' + encodeURIComponent(respuesta)
+                    body: 'archivo=' + encodeURIComponent(ARCHIVO_ACTUAL) + '&respuesta=' + encodeURIComponent(respuesta)
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -477,6 +666,14 @@ header('Content-Type: text/html; charset=UTF-8');
                         document.querySelectorAll('.response-btn').forEach(btn => {
                             btn.style.display = 'none';
                         });
+                        
+                        // Desactivar el botón principal
+                        openModalBtn.disabled = true;
+                        openModalBtn.textContent = 'Ya respondiste ❤️';
+                        
+                        // Mostrar información de la respuesta
+                        respuestaTexto.textContent = respuesta;
+                        respuestaInfo.classList.add('show');
                         
                         // Cerrar modal después de 2 segundos
                         setTimeout(() => {

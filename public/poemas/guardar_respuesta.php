@@ -20,8 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Obtener la respuesta del POST
+// Obtener la respuesta y el archivo del POST
 $respuesta = isset($_POST['respuesta']) ? trim($_POST['respuesta']) : '';
+$archivo = isset($_POST['archivo']) ? trim($_POST['archivo']) : '';
 
 // Validar que la respuesta no esté vacía
 if (empty($respuesta)) {
@@ -29,6 +30,16 @@ if (empty($respuesta)) {
     echo json_encode([
         'success' => false,
         'message' => 'La respuesta no puede estar vacía'
+    ]);
+    exit;
+}
+
+// Validar que el archivo no esté vacío
+if (empty($archivo)) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => 'El archivo no puede estar vacío'
     ]);
     exit;
 }
@@ -52,15 +63,33 @@ try {
         throw new Exception('No se pudo conectar a la base de datos');
     }
     
+    // Verificar si ya existe una respuesta para este archivo
+    $checkStmt = $conn->prepare("SELECT id FROM respuestas_gatita WHERE archivo = ? LIMIT 1");
+    $checkStmt->bind_param("s", $archivo);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+    
+    if ($checkResult && $checkResult->num_rows > 0) {
+        $checkStmt->close();
+        closeDBConnection($conn);
+        http_response_code(409); // Conflict
+        echo json_encode([
+            'success' => false,
+            'message' => 'Ya existe una respuesta para este archivo'
+        ]);
+        exit;
+    }
+    $checkStmt->close();
+    
     // Preparar la consulta para insertar la respuesta
-    $stmt = $conn->prepare("INSERT INTO respuestas_gatita (respuesta, fecha_respuesta) VALUES (?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO respuestas_gatita (archivo, respuesta, fecha_respuesta) VALUES (?, ?, NOW())");
     
     if (!$stmt) {
         throw new Exception('Error al preparar la consulta: ' . $conn->error);
     }
     
     // Vincular parámetros
-    $stmt->bind_param("s", $respuesta);
+    $stmt->bind_param("ss", $archivo, $respuesta);
     
     // Ejecutar la consulta
     if ($stmt->execute()) {
