@@ -8,7 +8,7 @@
 // NOTA: En Hostinger, cuando el script PHP está en el mismo servidor que la BD,
 // usa '127.0.0.1' en lugar de la IP externa
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'u494150416_gatita');
+define('DB_USER', 'u494150416_gatitia');
 define('DB_PASS', '0382646740Ju*');
 define('DB_NAME', 'u494150416_gatitia');
 
