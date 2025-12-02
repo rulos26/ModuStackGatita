@@ -6,8 +6,8 @@
 
 // Configuración de la base de datos
 // NOTA: En Hostinger, cuando el script PHP está en el mismo servidor que la BD,
-// debes usar 'localhost' en lugar de la IP externa
-define('DB_HOST', 'localhost');
+// usa '127.0.0.1' en lugar de la IP externa
+define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'u494150416_gatita');
 define('DB_PASS', '0382646740Ju*');
 define('DB_NAME', 'u494150416_gatitia');
@@ -17,7 +17,7 @@ define('DB_NAME', 'u494150416_gatitia');
  * @return mysqli|false Retorna el objeto mysqli o false en caso de error
  */
 function getDBConnection() {
-    // Crear conexión usando localhost (recomendado para Hostinger cuando PHP está en el mismo servidor)
+    // Crear conexión usando 127.0.0.1 (recomendado para Hostinger cuando PHP está en el mismo servidor)
     try {
         $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         
