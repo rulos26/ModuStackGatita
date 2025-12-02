@@ -224,7 +224,7 @@ ini_set('display_errors', 1);
                 </div>
                 <div class="step-content">
                     <ul>
-                        <li>En la sección "Usuarios de MySQL", busca el usuario: <code>u494150416_gatita</code></li>
+                        <li>En la sección "Usuarios de MySQL", busca el usuario: <code>u494150416_ZLlua</code></li>
                         <li><strong>IMPORTANTE:</strong> Copia el nombre EXACTO del usuario (puede tener prefijos diferentes)</li>
                         <li>Verifica que el usuario exista y esté activo</li>
                     </ul>
@@ -260,7 +260,7 @@ ini_set('display_errors', 1);
                 <div class="step-content">
                     <ul>
                         <li>En la sección "Bases de datos MySQL", busca la base de datos</li>
-                        <li>Verifica el nombre exacto (puede ser <code>u494150416_gatitia</code> o <code>u494150416_gatita</code>)</li>
+                        <li>Verifica el nombre exacto: <code>u494150416_LilLT</code></li>
                         <li>Copia el nombre EXACTO tal como aparece</li>
                     </ul>
                 </div>
@@ -274,7 +274,7 @@ ini_set('display_errors', 1);
                 <div class="step-content">
                     <ul>
                         <li>En la sección de bases de datos, busca la opción "Usuarios asignados" o "Assigned Users"</li>
-                        <li>Verifica que el usuario <code>u494150416_gatita</code> esté asignado a la base de datos</li>
+                        <li>Verifica que el usuario <code>u494150416_ZLlua</code> esté asignado a la base de datos</li>
                         <li>Si no está asignado, haz clic en "Agregar usuario" o "Assign User"</li>
                         <li>Asegúrate de que el usuario tenga todos los permisos (SELECT, INSERT, UPDATE, DELETE, etc.)</li>
                     </ul>
@@ -291,9 +291,9 @@ ini_set('display_errors', 1);
                 </div>
                 <div class="step-content">
                     <ul>
-                        <li>En Hostinger, cuando ejecutas PHP desde el mismo servidor, usa: <code>localhost</code></li>
-                        <li>La IP externa (<code>82.197.82.130</code>) solo se usa para conexiones remotas</li>
-                        <li>Para scripts PHP en el mismo servidor, siempre usa <code>localhost</code></li>
+                        <li>En Hostinger, cuando ejecutas PHP desde el mismo servidor, usa: <code>127.0.0.1</code></li>
+                        <li>La IP externa solo se usa para conexiones remotas</li>
+                        <li>Para scripts PHP en el mismo servidor, usa <code>127.0.0.1</code> con el puerto <code>3306</code></li>
                     </ul>
                 </div>
             </div>
@@ -309,12 +309,12 @@ ini_set('display_errors', 1);
                 <form method="POST" action="">
                     <div class="form-group">
                         <label for="db_host">Host:</label>
-                        <input type="text" id="db_host" name="db_host" value="localhost" required>
+                        <input type="text" id="db_host" name="db_host" value="127.0.0.1" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="db_user">Usuario:</label>
-                        <input type="text" id="db_user" name="db_user" value="u494150416_gatita" required>
+                        <input type="text" id="db_user" name="db_user" value="u494150416_ZLlua" required>
                     </div>
                     
                     <div class="form-group">
@@ -324,7 +324,7 @@ ini_set('display_errors', 1);
                     
                     <div class="form-group">
                         <label for="db_name">Base de Datos:</label>
-                        <input type="text" id="db_name" name="db_name" value="u494150416_gatitia" required>
+                        <input type="text" id="db_name" name="db_name" value="u494150416_LilLT" required>
                     </div>
                     
                     <button type="submit" class="btn">🔍 Probar Conexión</button>

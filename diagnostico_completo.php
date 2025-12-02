@@ -7,14 +7,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Credenciales base
-$db_user = 'u494150416_gatita';
-$db_pass = '0382646740Ju*';
+// Credenciales base - Actualizadas con las nuevas credenciales
+$db_user = 'u494150416_ZLlua';
+$db_pass = '!$a2-b2}^Kf.!Gj0';
 
-// Posibles nombres de base de datos (nota: hay variación entre "gatita" y "gatitia")
+// Posibles nombres de base de datos
 $possible_db_names = [
-    'u494150416_gatitia',  // El que proporcionaste
-    'u494150416_gatita',   // Variación sin la "i" extra
+    'u494150416_LilLT',  // Base de datos actual
 ];
 
 // Hosts a probar
@@ -264,7 +263,7 @@ $hosts = [
                         echo '<pre style="background: #fff; padding: 10px; border-radius: 5px; margin-top: 10px;">';
                         echo "define('DB_HOST', '" . htmlspecialchars($host) . "');\n";
                         echo "define('DB_USER', '" . htmlspecialchars($db_user) . "');\n";
-                        echo "define('DB_PASS', '0382646740Ju*');\n";
+                        echo "define('DB_PASS', '!$a2-b2}^Kf.!Gj0');\n";
                         echo "define('DB_NAME', '" . htmlspecialchars($db_name) . "');";
                         echo '</pre>';
                         echo '</div>';

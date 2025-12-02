@@ -7,10 +7,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Credenciales
-$db_user = 'u494150416_gatita';
-$db_pass = '0382646740Ju*';
-$db_name = 'u494150416_gatitia';
+// Credenciales - Actualizadas con las nuevas credenciales
+$db_user = 'u494150416_ZLlua';
+$db_pass = '!$a2-b2}^Kf.!Gj0';
+$db_name = 'u494150416_LilLT';
 
 // Opciones de host a probar
 $hosts = [
